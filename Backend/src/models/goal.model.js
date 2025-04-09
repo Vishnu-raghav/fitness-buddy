@@ -1,37 +1,37 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
+const {Schema} = mongoose
 
-const goalSchema = new Schema(
+const dietSchema = new Schema(
   {
-    name: {
-      type: String,
-      enum: ["Muscle Gain", "Fat Loss", "Stay Fit"],
-      required: true,
+    mealType :{
+      type : String,
+      enum : ["BreakFast","Lunch","Snacks","Dinner"],
+      required : true,
     },
-    diet: [
+    items : [
       {
-        type: String, 
-        items: [String], 
-      },
-    ],
-    
-    diet: [
-      {
-        type: {
-          type: String, // meal name
-        },
-        items: [String],
-      },
-    ],
-
-    workout: [
-      {
-        day: String,
-        exercise: [String],
-      },
-    ],
+        type : String,
+        required : true
+      }
+    ]
   },
-  { timestamps: true }
-);
+  {id:false}
+)
 
-export const Goal = mongoose.model("Goal", goalSchema);
+const workOutSchema = new Schema(
+  {
+    day : {
+      type : String,
+      enum : [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      required : true
+    }
+  }
+)
