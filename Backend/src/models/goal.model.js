@@ -3,7 +3,7 @@ const {Schema} = mongoose
 
 const dietSchema = new Schema(
   {
-    mealType :{
+    mealType : {
       type : String,
       enum : ["BreakFast","Lunch","Snacks","Dinner"],
       required : true,
@@ -31,7 +31,45 @@ const workOutSchema = new Schema(
         "Saturday",
         "Sunday",
       ],
-      required : true
-    }
+      required : true,
+    },
+    exercise : [
+      {
+        name : {
+          type : String,
+          required : true,
+        },
+        sets : {
+          type : Number,
+          default : 4,
+        },
+        reps : {
+          type : Number,
+          default : 12
+        },
+        duration :{
+          type : String,
+          default : "25 min"
+        }
+      }
+    ]
+  },
+  {
+    id : false
   }
+);
+
+const goalSchema = new Schema(
+  {
+    name : {
+      type : String,
+      enum : ["Muscle Gain", "Fat Loss", "Stay Fit"],
+      required : true,
+    },
+    diet : [dietSchema],
+    workOut : [workOutSchema]
+  },
+  {timestamps : true}
 )
+
+export const Goal = mongoose.model("Goal",goalSchema)
