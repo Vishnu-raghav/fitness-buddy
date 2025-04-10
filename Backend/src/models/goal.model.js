@@ -5,7 +5,7 @@ const dietSchema = new Schema(
   {
     mealType : {
       type : String,
-      enum : ["BreakFast","Lunch","Snacks","Dinner"],
+      enum : ["Breakfast","Lunch","Snacks","Dinner"],
       required : true,
     },
     items : [
