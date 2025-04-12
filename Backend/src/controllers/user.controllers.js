@@ -2,6 +2,7 @@ import {asyncHandler} from "../utils/asyncHandler.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import { User } from "../models/user.models.js"
+import {Goal} from "../models/goal.model.js"
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 
@@ -34,10 +35,17 @@ const registerUser = asyncHandler(async (req,res)=>{
         throw new ApiError("User already exist")
     }
 
+    const goalDoc = await Goal.findOne({name:goal})
+
+    if (!goalDoc) {
+        throw new ApiError("Invalid goal selected");
+    }
+
     const user = await User.create({
      fullName,
      email,
-     password
+     password,
+     goal:goalDoc._id
     })
 
     const createdUser = await User.findById(user._id).select(
@@ -104,7 +112,9 @@ const loginUser = asyncHandler(async(req,res)=>{
 
 const logoutUser = asyncHandler(async(req,res)=>{
     await User.findByIdAndUpdate(
-        req.user._id
+        req.user._id,
+        {},
+
     )
 })
 
