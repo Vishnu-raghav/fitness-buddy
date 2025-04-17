@@ -7,9 +7,9 @@ import jwt from "jsonwebtoken"
 
 const generateAccessAndRefreshToken = async (userId)=>{
 try {
-        const user = await User.findById({userId})
+        const user = await User.findById(userId)
         const accessToken = user.generateAccessToken()
-        const refreshToken = user.genrateRefreshToken()
+        const refreshToken = user.generateRefreshToken()
     
         user.refreshToken = refreshToken
         await user.save({validateBeforeSave : false})
@@ -136,7 +136,7 @@ const logoutUser = asyncHandler(async(req,res)=>{
 })
 
 const refreshAccessToken = asyncHandler(async(req,res)=>{
-    const incomingRefreshToken = req.cookie?.refreshToken || req.body?.refreshToken
+    const incomingRefreshToken = req.cookies?.refreshToken || req.body?.refreshToken
 
     if(!incomingRefreshToken){
         throw new ApiError(401,"unauthorized request")
@@ -160,7 +160,7 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
             secure : true
         }
 
-        const {accessToken,newRefreshToken} = generateAccessAndRefreshToken(user._id)
+        const {accessToken,newRefreshToken} = await generateAccessAndRefreshToken(user._id)
 
         return res
         .status(201)
