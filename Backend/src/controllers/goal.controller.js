@@ -1,5 +1,5 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/ApiError";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
 import {ApiResponse} from "../utils/ApiResponse.js"
 import { User } from "../models/user.models.js";
 import { Goal } from "../models/goal.model.js";
@@ -28,15 +28,10 @@ const getUserPlan = asyncHandler(async(req,res)=>{
 })
 
 const getGoals = asyncHandler (async(req,res) =>{
- const {goal} = req.body
 
- if(!goal){
-    throw new ApiError(404,"Goal data not found")
- }
+ const goalName = await Goal.find({},"name diet workOut")
 
- const goalData = await Goal.findOne({name : goal})
-
- if(!goalData){
+ if(!goalName){
     throw new ApiError(404,"Goal data not found")
  }
 
@@ -45,7 +40,7 @@ const getGoals = asyncHandler (async(req,res) =>{
  .json(
     new ApiResponse(
         200,
-        goalData,
+        goalName,
         "user goaldata fetch successfully"
     )
  )

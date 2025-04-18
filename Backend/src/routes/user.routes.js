@@ -1,10 +1,11 @@
 import {Router} from "express"
 import {loginUser, registerUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetail, updateUserGoal} from "../controllers/user.controllers.js"
+import {getUserPlan,getGoals} from "../controllers/goal.controller.js"
 import {verifyjwt} from "../middlewares/auth.middleware.js"
-const router = Router()
 import multer from "multer";
-const upload = multer(); // For parsing form-data
 
+const router = Router()
+const upload = multer(); 
 
 router.route("/register").post(registerUser)
 
@@ -18,4 +19,6 @@ router.route("/change-password").post(verifyjwt,changeCurrentPassword)
 router.route("/current-user").get(verifyjwt,getCurrentUser)
 router.route("/update-account").patch(verifyjwt,updateAccountDetail)
 router.route("/update-goal").patch(verifyjwt,updateUserGoal)
+router.route("/plan").get(verifyjwt,getUserPlan);
+router.route("/goals").get(getGoals);
 export default router
