@@ -79,7 +79,7 @@ const loginUser = asyncHandler(async(req,res)=>{
         throw new ApiError(404,"user not found")
     }
 
-    const isPasswordValid = await user.isPaswordCorrect(password)
+    const isPasswordValid = await user.isPasswordCorrect(password)
     if(!isPasswordValid){
         throw new ApiError(401,"Invalid User Credentials")
     }
@@ -90,7 +90,7 @@ const loginUser = asyncHandler(async(req,res)=>{
 
     const options = {
         httpOnly : true,
-        secure : true,
+        secure : false,
     }
 
     return res
@@ -123,11 +123,11 @@ const logoutUser = asyncHandler(async(req,res)=>{
     )
     const options = {
         httpOnly : true,
-        secure : true,
+        secure : false,
     }
 
     return res
-    .status(201)
+    .status(200)
     .clearCookie("accessToken",options)
     .clearCookie("refreshToken",options)
     .json(

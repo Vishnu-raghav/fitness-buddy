@@ -2,10 +2,13 @@ import {Router} from "express"
 import {loginUser, registerUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetail, updateUserGoal} from "../controllers/user.controllers.js"
 import {verifyjwt} from "../middlewares/auth.middleware.js"
 const router = Router()
+import multer from "multer";
+const upload = multer(); // For parsing form-data
+
 
 router.route("/register").post(registerUser)
 
-router.route("/login").post(loginUser)
+router.route("/login").post(upload.none(),loginUser)
 
 // secure routes
 
