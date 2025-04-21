@@ -1,4 +1,4 @@
-import axios, { Axios } from "axios"
+import { Axios } from "axios"
 
 const Api = Axios.create({
     baseUrl : "http://localhost:5000/api/v1",
