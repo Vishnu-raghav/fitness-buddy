@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {useSelector,useDispatch} from "react-redux"
-import {useNavigate} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
 import {loginThunk} from "../features/auth/authThunk.js"
-import {Button} from "./Button.jsx"
-import Input from "./Input.jsx";
+// import {Button} from "./Button.jsx"
+// import Input from "./Input.jsx";
 import {useForm} from "react-hook-form"
 
 function Login(){
@@ -29,11 +29,15 @@ function Login(){
             <div>Image</div> 
             <div>
                 <h1>Welcome Back</h1>
-                <p></p>
+                <p>lorem*2</p>
 
-                <form action=""></form>
-                
+                <form onSubmit={handleSubmit(login)}>
+                </form>
+
             </div>
         </div>
     )
 }
+
+
+export default Login
