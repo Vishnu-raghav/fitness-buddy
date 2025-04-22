@@ -25,8 +25,15 @@ function Login(){
     }
 
     return(
-        <>
-        
-        </>
+        <div className="bg-amber-300 w-full">
+            <div>Image</div> 
+            <div>
+                <h1>Welcome Back</h1>
+                <p></p>
+
+                <form action=""></form>
+                
+            </div>
+        </div>
     )
 }
